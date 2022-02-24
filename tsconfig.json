@@ -9,7 +9,8 @@
     "emitDeclarationOnly": false,
     "lib": ["es6"],
     "moduleResolution": "Node",
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"

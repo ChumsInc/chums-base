@@ -18,9 +18,9 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-const mysql2 = require('mysql2/promise');
+import { createConnection, createPool } from 'mysql2/promise';
 const config = {
-    connectionLimit: process.env.MYSQL_POOL_LIMIT || 5,
+    connectionLimit: Number(process.env.MYSQL_POOL_LIMIT || 5),
     host: process.env.MYSQL_SERVER || '',
     user: process.env.MYSQL_USERNAME || '',
     password: process.env.MYSQL_PASSWORD || '',
@@ -30,7 +30,7 @@ const config = {
 export function getConnection() {
     return __awaiter(this, void 0, void 0, function* () {
         const { connectionLimit } = config, connectionConfig = __rest(config, ["connectionLimit"]);
-        return mysql2.createConnection(Object.assign({}, connectionConfig));
+        return createConnection(Object.assign({}, connectionConfig));
     });
 }
-export const mysql2Pool = mysql2.createPool(Object.assign({}, config));
+export const mysql2Pool = createPool(Object.assign({}, config));

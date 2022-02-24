@@ -8,8 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Debug from 'debug';
-import { verify, decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 const debug = Debug('chums:local-modules:jwt-handler');
+const { verify, decode } = jwt;
 const { JWT_ISSUER = 'NOT THE ISSUER', JWT_SECRET = 'NOT THE SECRET' } = process.env;
 const ERR_TOKEN_EXPIRED = 'TokenExpiredError';
 /**

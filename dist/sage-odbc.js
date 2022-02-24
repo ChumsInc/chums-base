@@ -11,10 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Debug from 'debug';
-const adodb = require('node-adodb');
-const { escape, format } = require('sqlstring');
+import adodb from 'node-adodb';
+import sqlString from 'sqlstring';
 import { getSageCompany } from './utils.js';
-const namedPlaceholders = require('named-placeholders')();
+// @ts-ignore
+import NamedPlaceholders from 'named-placeholders';
+const { escape, format } = sqlString;
+const namedPlaceholders = NamedPlaceholders();
 const debug = Debug('chums:local_modules:chums-base:sage-odbc');
 const connectionString = (company = 'CHI') => {
     company = getSageCompany(company);

@@ -1,10 +1,13 @@
 import Debug from 'debug';
 import {spawn} from 'child_process';
+// @ts-ignore
+import NamedPlaceholders from 'named-placeholders';
+import sqlString from 'sqlstring';
 
 const debug = Debug('chums:base:query');
 const queryExecutable = process.env.SAGE_QUERY_EXECUTABLE || 'D:\\www\\SageQuery\\SageQuery.exe';
-const namedPlaceholders = require('named-placeholders')();
-const {format} = require('sqlstring');
+const namedPlaceholders = NamedPlaceholders();
+const {format} = sqlString;
 
 
 export interface QueryArgs {

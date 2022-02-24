@@ -1,7 +1,10 @@
 import {NextFunction, Request, Response} from "express";
+// @ts-ignore
+import NamedPlaceholders from 'named-placeholders';
+import sqlString from 'sqlstring';
 
-const namedPlaceholders = require('named-placeholders')();
-const {format} = require('sqlstring');
+const namedPlaceholders = NamedPlaceholders();
+const {format} = sqlString;
 
 
 export interface ParseSQLParams {

@@ -3,17 +3,20 @@
  */
 
 import Debug from 'debug';
-import {open} from 'node-adodb';
-const adodb = require('node-adodb');
-const {escape, format} = require('sqlstring');
+import adodb, {open} from 'node-adodb';
+import sqlString from 'sqlstring';
 import {getSageCompany} from './utils.js';
+// @ts-ignore
+import NamedPlaceholders from 'named-placeholders';
+
+const {escape, format} = sqlString;
 
 export interface QueryResult<T> {
     sql: string,
     records: T
 }
 
-const namedPlaceholders = require('named-placeholders')();
+const namedPlaceholders = NamedPlaceholders();
 const debug = Debug('chums:local_modules:chums-base:sage-odbc');
 
 

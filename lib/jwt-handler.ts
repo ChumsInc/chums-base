@@ -1,9 +1,9 @@
 import Debug from 'debug';
-import {verify, decode, JwtPayload} from 'jsonwebtoken';
+import jwt, {JwtPayload} from 'jsonwebtoken';
 import {BaseJWTToken} from "./types.js";
 
 const debug = Debug('chums:local-modules:jwt-handler');
-
+const {verify, decode} = jwt;
 const {JWT_ISSUER = 'NOT THE ISSUER', JWT_SECRET = 'NOT THE SECRET'} = process.env;
 const ERR_TOKEN_EXPIRED = 'TokenExpiredError';
 
