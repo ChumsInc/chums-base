@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Debug from 'debug';
-import { open } from 'node-adodb';
+const adodb = require('node-adodb');
 const { escape, format } = require('sqlstring');
 import { getSageCompany } from './utils.js';
 const namedPlaceholders = require('named-placeholders')();
@@ -31,7 +31,7 @@ class SageODBC {
         }
     }
     connect(company) {
-        this.connection = open(connectionString(company));
+        this.connection = adodb.open(connectionString(company));
     }
     static getConnection(company = 'CHI') {
         return __awaiter(this, void 0, void 0, function* () {

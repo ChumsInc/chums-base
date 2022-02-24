@@ -4,6 +4,7 @@
 
 import Debug from 'debug';
 import {open} from 'node-adodb';
+const adodb = require('node-adodb');
 const {escape, format} = require('sqlstring');
 import {getSageCompany} from './utils.js';
 
@@ -35,7 +36,7 @@ class SageODBC {
     }
 
     connect(company: string) {
-        this.connection = open(connectionString(company));
+        this.connection = adodb.open(connectionString(company));
     }
 
     static async getConnection(company: string = 'CHI') {
