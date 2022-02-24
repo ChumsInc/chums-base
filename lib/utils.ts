@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 
 const namedPlaceholders = require('named-placeholders')();
-const SqlString = require('sqlstring');
+import {format} from 'sqlstring';
 
 
 export interface ParseSQLParams {
@@ -9,7 +9,7 @@ export interface ParseSQLParams {
 }
 export function parseSQL(query:string, params:ParseSQLParams = {}):string {
     const prepared = namedPlaceholders(query, params || {});
-    return SqlString.format(prepared[0], prepared[1]);
+    return format(prepared[0], prepared[1]);
 }
 
 

@@ -70,7 +70,7 @@ export async function execQuery(props: QueryArgs): Promise<QueryResult> {
 
         const json = response.join('');
         return JSON.parse(json) as QueryResult;
-    } catch (err:unknown) {
+    } catch (err: unknown) {
         if (err instanceof Error) {
             debug("execQuery() caught error: ", err.message);
         }
@@ -91,7 +91,7 @@ export async function query(company: string, sql: string, params: object = {}): 
         const prepared = namedPlaceholders(sql, params || {});
         const parsedSQL = format(prepared[0], prepared[1]);
         return await execQuery({company, sql: parsedSQL})
-    } catch (err:unknown) {
+    } catch (err: unknown) {
         if (err instanceof Error) {
             debug("query()", err.message);
         }

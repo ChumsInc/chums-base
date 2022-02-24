@@ -1,8 +1,8 @@
 const namedPlaceholders = require('named-placeholders')();
-const SqlString = require('sqlstring');
+import { format } from 'sqlstring';
 export function parseSQL(query, params = {}) {
     const prepared = namedPlaceholders(query, params || {});
-    return SqlString.format(prepared[0], prepared[1]);
+    return format(prepared[0], prepared[1]);
 }
 /**
  * Returns a valid database company for use in database company fields
