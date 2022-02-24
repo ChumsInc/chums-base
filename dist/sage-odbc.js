@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import Debug from 'debug';
 import { open } from 'node-adodb';
-import { escape, format } from 'sqlstring';
+const { escape, format } = require('sqlstring');
 import { getSageCompany } from './utils.js';
 const namedPlaceholders = require('named-placeholders')();
 const debug = Debug('chums:local_modules:chums-base:sage-odbc');

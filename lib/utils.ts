@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 
 const namedPlaceholders = require('named-placeholders')();
-import {format} from 'sqlstring';
+const {format} = require('sqlstring');
 
 
 export interface ParseSQLParams {
