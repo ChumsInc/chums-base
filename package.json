@@ -9,7 +9,7 @@
   },
   "author": "Steve Montgomery",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "peerDependencies": {
     "debug": "^4.1.1",
     "express": "^4.17.3"
