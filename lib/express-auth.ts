@@ -1,4 +1,4 @@
-import {UserValidation} from "./types";
+import {UserValidation} from "./types.js";
 
 declare module "express-serve-static-core" {
     export interface Request {

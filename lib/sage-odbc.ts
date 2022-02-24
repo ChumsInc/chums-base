@@ -5,7 +5,7 @@
 import Debug from 'debug';
 import {open} from 'node-adodb';
 import {escape, format} from 'sqlstring';
-import {getSageCompany} from './utils';
+import {getSageCompany} from './utils.js';
 
 export interface QueryResult<T> {
     sql: string,
