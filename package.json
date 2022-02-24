@@ -1,6 +1,6 @@
 {
   "name": "chums-base",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Base utilities for Chums nodejs server on windows server.",
   "main": "dist/index.js",
   "scripts": {
