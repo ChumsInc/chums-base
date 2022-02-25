@@ -5,7 +5,7 @@ import {basicAuth, jwtToken} from './auth.js';
 import {UserJWTToken, UserProfile, UserValidation} from "./types.js";
 import {isBeforeExpiry, isLocalToken, validateToken} from './jwt-handler.js';
 
-const debug = Debug('chums:local-modules:validate-user');
+const debug = Debug('chums:base:validate-user');
 const API_HOST = process.env.CHUMS_API_HOST || 'http://localhost';
 
 
@@ -25,6 +25,7 @@ export async function validateUser(req: Request, res: Response, next: NextFuncti
         const {valid, status, profile} = await loadValidation(req);
         if (!valid) {
             res.status(401).json({error: 401, status});
+            return;
         }
         res.locals.profile = profile;
         req.userAuth = {valid, status, profile};
@@ -33,6 +34,7 @@ export async function validateUser(req: Request, res: Response, next: NextFuncti
         if (err instanceof Error) {
             debug("validateUser()", err.message)
             res.status(401).json({error: 'Not authorized', message: err.message});
+            return;
         }
         debug("validateUser()", err)
         res.status(401).json({error: 'Not authorized', message: err});

@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import Debug from 'debug';
 import { createTransport } from 'nodemailer';
 const debug = Debug('chums:lib:mailer');
@@ -28,7 +19,7 @@ const debug = Debug('chums:lib:mailer');
  * @param {string} [textContent]
  * @param [attachments]
  */
-export const sendOldSESEmail = ({ to = [], cc = [], bcc = [], replyTo, from, subject, html, textContent, attachments }) => __awaiter(void 0, void 0, void 0, function* () {
+export const sendOldSESEmail = async ({ to = [], cc = [], bcc = [], replyTo, from, subject, html, textContent, attachments }) => {
     try {
         to = !Array.isArray(to) ? [to] : to;
         cc = !Array.isArray(cc) ? [cc] : cc;
@@ -62,7 +53,7 @@ export const sendOldSESEmail = ({ to = [], cc = [], bcc = [], replyTo, from, sub
             attachments
         };
         // return mailOptions;
-        return yield transporter.sendMail(mailOptions);
+        return await transporter.sendMail(mailOptions);
     }
     catch (err) {
         if (err instanceof Error) {
@@ -72,7 +63,7 @@ export const sendOldSESEmail = ({ to = [], cc = [], bcc = [], replyTo, from, sub
         debug("sendEmail()", err);
         return Promise.reject(err);
     }
-});
+};
 export const getTs = () => {
     return Date.now();
 };
@@ -91,7 +82,7 @@ export const getLogoImageAttachment = (ts = getTs36()) => {
         cid: `logo-${ts}@chums.com`
     };
 };
-export const sendGmail = ({ to = [], cc = [], bcc = [], replyTo, from, subject, html, textContent, attachments }) => __awaiter(void 0, void 0, void 0, function* () {
+export const sendGmail = async ({ to = [], cc = [], bcc = [], replyTo, from, subject, html, textContent, attachments }) => {
     try {
         to = !Array.isArray(to) ? [to] : to;
         cc = !Array.isArray(cc) ? [cc] : cc;
@@ -124,7 +115,7 @@ export const sendGmail = ({ to = [], cc = [], bcc = [], replyTo, from, subject, 
         };
         debug('sendGmail()', { to, from, subject, replyTo });
         // return mailOptions;
-        return yield transporter.sendMail(mailOptions);
+        return await transporter.sendMail(mailOptions);
     }
     catch (err) {
         if (err instanceof Error) {
@@ -134,5 +125,5 @@ export const sendGmail = ({ to = [], cc = [], bcc = [], replyTo, from, subject, 
         debug("sendGmail()", err);
         return Promise.reject(err);
     }
-});
+};
 export const sendEmail = sendGmail;
