@@ -7,10 +7,11 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": false,
-    "lib": ["es6"],
+    "lib": ["es6", "DOM"],
     "moduleResolution": "Node",
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"
