@@ -5,7 +5,7 @@
 import Debug from 'debug';
 import adodb, {open} from 'node-adodb';
 import sqlString from 'sqlstring';
-import {getSageCompany} from './utils.js';
+import {getSageCompany} from 'chums-user-validation';
 import NamedPlaceholders from 'named-placeholders';
 
 const {escape, format} = sqlString;
