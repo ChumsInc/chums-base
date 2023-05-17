@@ -1,6 +1,5 @@
 import Debug from 'debug';
 import {spawn} from 'child_process';
-// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 import sqlString from 'sqlstring';
 
@@ -18,20 +17,20 @@ export interface QueryArgs {
     sql: string,
 }
 
-export interface Field {
-    Name: string,
+export interface Field<T = any> {
+    Name: keyof T | string,
     FieldType: string,
 }
 
-export interface QueryResult {
+export interface QueryResult<T = any> {
     Company: string,
-    Fields: Field[],
+    Fields: Field<T>[],
     Error?: string | null,
-    Data: Record<string, any>[],
+    Data: Record<string, T>[],
     Query: string,
 }
 
-function parseArgs({dsn, company, offset = 0, limit = 100, sql}: QueryArgs): string[] {
+function parseArgs({dsn, company, offset = 0, limit = 0, sql}: QueryArgs): string[] {
     const args: string[] = [];
     if (dsn) {
         args.push(...['--dsn', String(dsn).trim()]);
@@ -50,11 +49,11 @@ function parseArgs({dsn, company, offset = 0, limit = 100, sql}: QueryArgs): str
 }
 
 
-export async function execQuery(props: QueryArgs): Promise<QueryResult> {
+export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult> {
     try {
         const args = parseArgs(props);
         const response: string[] = [];
-        const child = spawn(queryExecutable, args);
+        const child = spawn(queryExecutable, args, {shell: true});
         const errors: string[] = [];
 
         child.stderr.on('data', (buffer) => {
@@ -72,7 +71,7 @@ export async function execQuery(props: QueryArgs): Promise<QueryResult> {
         }
 
         const json = response.join('');
-        return JSON.parse(json) as QueryResult;
+        return JSON.parse(json) as QueryResult<T>;
     } catch (err: unknown) {
         if (err instanceof Error) {
             debug("execQuery() caught error: ", err.message);
@@ -89,11 +88,11 @@ export async function execQuery(props: QueryArgs): Promise<QueryResult> {
  * @param {object} [params]
  * @return {Promise<*|{Company, Fields[], Error, Data[]}>}
  */
-export async function query(company: string, sql: string, params: object = {}): Promise<QueryResult> {
+export async function query<T = any>(company: string, sql: string, params: object = {}): Promise<QueryResult> {
     try {
         const prepared = namedPlaceholders(sql, params || {});
         const parsedSQL = format(prepared[0], prepared[1]);
-        return await execQuery({company, sql: parsedSQL})
+        return await execQuery<T>({company, sql: parsedSQL})
     } catch (err: unknown) {
         if (err instanceof Error) {
             debug("query()", err.message);

@@ -6,12 +6,11 @@ import Debug from 'debug';
 import adodb, {open} from 'node-adodb';
 import sqlString from 'sqlstring';
 import {getSageCompany} from './utils.js';
-// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 
 const {escape, format} = sqlString;
 
-export interface QueryResult<T> {
+export interface SageQueryResult<T> {
     sql: string,
     records: T
 }
@@ -60,7 +59,7 @@ class SageODBC {
         return format(prepared[0], prepared[1]);
     }
 
-    async query<T>(query: string, params: object = {}): Promise<QueryResult<T>> {
+    async query<T>(query: string, params: object = {}): Promise<SageQueryResult<T>> {
         if (!this.connection) {
             return Promise.reject(new Error('SageODBC not connected.'));
         }

@@ -2,7 +2,7 @@
   "name": "chums-base",
   "version": "1.0.6",
   "description": "Base utilities for Chums nodejs server on windows server.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build-ts": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,20 +16,21 @@
   },
   "devDependencies": {
     "debug": "^4.3.3",
-    "typescript": "^4.5.5"
+    "typescript": "^5.0.4"
   },
-  "typings": "./dist/index.d.ts",
+  "typings": "./lib/index.ts",
   "dependencies": {
+    "@tsconfig/node19": "^2.0.1",
     "@types/debug": "^4.1.7",
     "@types/express": "^4.17.13",
-    "@types/jsonwebtoken": "^8.5.1",
-    "@types/node": "^17.0.21",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^20.1.7",
     "@types/nodemailer": "^6.4.1",
     "@types/sqlstring": "^2.3.0",
-    "cookie": "^0.4.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3",
-    "named-placeholders": "^1.1.2",
+    "cookie": "^0.5.0",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.3.1",
+    "named-placeholders": "^1.1.3",
     "node-adodb": "^5.0.2",
     "node-fetch": "^3.2.0",
     "nodemailer": "^6.5.0",
