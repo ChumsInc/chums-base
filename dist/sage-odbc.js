@@ -4,7 +4,8 @@
 import Debug from 'debug';
 import adodb from 'node-adodb';
 import sqlString from 'sqlstring';
-import { getSageCompany } from 'chums-user-validation';
+import { getSageCompany } from './utils.js';
+// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 const { escape, format } = sqlString;
 const namedPlaceholders = NamedPlaceholders();
@@ -14,10 +15,10 @@ const connectionString = (company = 'CHI') => {
     return `DSN=SAGE; Company=${company};`;
 };
 class SageODBC {
-    // static adSchemaTables = 20;
-    // static adSchemaColumns = 4;
-    connection = null;
     constructor(company) {
+        // static adSchemaTables = 20;
+        // static adSchemaColumns = 4;
+        this.connection = null;
         this.connection = null;
         if (company) {
             this.connect(company);

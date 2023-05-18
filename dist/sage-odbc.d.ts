@@ -2,7 +2,7 @@
  * Created by steve on 12/16/2016.
  */
 import { open } from 'node-adodb';
-export interface SageQueryResult<T> {
+export interface QueryResult<T> {
     sql: string;
     records: T;
 }
@@ -12,7 +12,7 @@ declare class SageODBC {
     connect(company: string): void;
     static getConnection(company?: string): Promise<SageODBC>;
     static sql(query: string, params?: object): string;
-    query<T>(query: string, params?: object): Promise<SageQueryResult<T>>;
+    query<T>(query: string, params?: object): Promise<QueryResult<T>>;
     schema<T>(type: number, criteria?: any[] | undefined, id?: string | undefined): Promise<T | null>;
     static escape(str: string): string;
 }

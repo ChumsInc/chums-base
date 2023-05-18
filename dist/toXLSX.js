@@ -1,6 +1,6 @@
 import Debug from 'debug';
-import { utils, write } from 'xlsx';
 const debug = Debug('chums:local-modules:toXLSX');
+import { utils, write } from 'xlsx';
 export const decode_cell = utils.decode_cell;
 export const encode_cell = utils.encode_cell;
 export function parseDataForAOA(data, columnNames, onlyColumnNames) {

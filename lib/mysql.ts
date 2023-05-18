@@ -15,5 +15,3 @@ export async function getConnection() {
 }
 
 export const mysql2Pool = createPool({...config});
-
-//@TODO: disable skipLibCheck in tsconfig.json

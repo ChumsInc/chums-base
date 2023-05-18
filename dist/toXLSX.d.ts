@@ -1,4 +1,4 @@
-import { SheetAOAOpts, WorkSheet, WritingOptions } from 'xlsx';
+import { WorkSheet, WritingOptions, SheetAOAOpts } from 'xlsx';
 import { RowDataPacket } from "mysql2";
 export declare const decode_cell: (address: string) => import("xlsx").CellAddress;
 export declare const encode_cell: (cell: import("xlsx").CellAddress) => string;

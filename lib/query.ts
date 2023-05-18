@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import {spawn} from 'child_process';
+// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 import sqlString from 'sqlstring';
 

@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import { spawn } from 'child_process';
+// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 import sqlString from 'sqlstring';
 const debug = Debug('chums:base:query');
@@ -27,8 +28,12 @@ export async function execQuery(props) {
     try {
         const args = parseArgs(props);
         const response = [];
-        const child = spawn(queryExecutable, args, { shell: true });
+        const child = spawn(queryExecutable, args, { detached: false });
         const errors = [];
+        child.on('error', (err) => {
+            debug('execQuery()', err.message);
+            errors.push(err.message);
+        });
         child.stderr.on('data', (buffer) => {
             const data = Buffer.from(buffer).toString();
             errors.push(data);
