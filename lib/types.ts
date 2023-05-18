@@ -57,3 +57,7 @@ export interface BaseJWTToken {
 
 export interface UserJWTToken extends UserProfile, BaseJWTToken {}
 
+export interface CustomerValidationResponse {
+    billTo: boolean;
+    shipTo: string[];
+}

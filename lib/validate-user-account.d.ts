@@ -1,3 +1,4 @@
+import { CustomerValidationResponse } from "./types";
 /**
  *
  * @param {string|number} id - User ID
@@ -16,3 +17,4 @@ export interface ValidationResult {
     success?: boolean;
 }
 export declare function validateUserAccount({ id, Company, ARDivisionNo, CustomerNo }: ValidateUserAccountProps): Promise<boolean>;
+export declare function validateUserCustomerAccess({ id, Company, ARDivisionNo, CustomerNo }: ValidateUserAccountProps): Promise<CustomerValidationResponse>;
