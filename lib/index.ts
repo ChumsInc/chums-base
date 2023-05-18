@@ -1,3 +1,4 @@
+import 'dotenv/config'
 export * from 'chums-user-validation'
 export * from './mailer.js';
 export * from './mysql.js';
