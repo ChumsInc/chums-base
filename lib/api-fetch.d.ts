@@ -1,6 +1,7 @@
 /// <reference types="node" />
+import { RequestInit } from 'node-fetch';
 import { URL } from 'url';
-export interface APIFetchOptions {
+export interface APIFetchOptions extends RequestInit {
     headers?: {
         Authorization?: string;
         'Content-Type'?: string;
