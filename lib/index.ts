@@ -1,10 +1,10 @@
 export {apiFetch, APIFetchOptions} from './api-fetch.js'
 export {
-    sendEmail, sendGmail, getLogoImageAttachment, getTs, getTs36, sendMailProps
+    sendEmail, sendGmail, getLogoImageAttachment, getTs, getTs36, sendMailProps, Address
 } from './mailer.js';
 export {mysql2Pool, mysql2Pool as pool, getConnection} from './mysql.js';
 export {execQuery, query, QueryResult, QueryArgs, Field, query as SageODBCQuery} from './query.js';
-export {default as sageOdbc, default as SageODBC} from './sage-odbc.js';
+export {default as sageOdbc, default as SageODBC, SageODBCResult} from './sage-odbc.js';
 export {
     resultToExcelSheet,
     buildXLSXHeaders,
@@ -22,10 +22,14 @@ export {
     parseSQL,
     validateAccountParams,
     validateARDivisionNo,
-    validateCustomerNo
+    validateCustomerNo, isUserRole
 } from './utils.js';
-export {validateUser, validateRole, loadValidation} from './validate-user.js';
+export {validateUser, validateRole, loadValidation, roleName} from './validate-user.js';
 export {
-    validateUserAccount, validateUserAccount as validateAccount, validateUserCustomerAccess
+    validateUserAccount,
+    validateUserAccount as validateAccount,
+    validateUserCustomerAccess,
+    ValidateUserAccountProps,
+    ValidationResult
 } from './validate-user-account.js'
 export {ValidatedRequest, ValidatedResponse, ValidatedResponseLocals} from './types.js'

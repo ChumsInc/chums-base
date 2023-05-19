@@ -15,6 +15,7 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
+    "auto-changelog": "^2.4.0",
     "chums-types": "github:UtahGooner/chums-types",
     "debug": "^4.3.3",
     "typescript": "^5.0.4"
@@ -37,5 +38,10 @@
     "nodemailer": "^6.5.0",
     "sqlstring": "^2.3.1",
     "xlsx": "^0.18.2"
+  },
+  "auto-changelog": {
+    "template": "keepachangelog",
+    "unreleased": true,
+    "commitLimit": false
   }
 }
