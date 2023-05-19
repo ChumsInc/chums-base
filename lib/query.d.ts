@@ -16,7 +16,7 @@ export interface QueryResult<T = any> {
     Data: Record<string, T>[];
     Query: string;
 }
-export declare function execQuery<T = any>(props: QueryArgs): Promise<QueryResult>;
+export declare function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<T>>;
 /**
  *
  * @param {string} company

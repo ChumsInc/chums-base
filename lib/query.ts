@@ -50,7 +50,7 @@ function parseArgs({dsn, company, offset = 0, limit = 0, sql}: QueryArgs): strin
 }
 
 
-export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult> {
+export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<T>> {
     try {
         const args = parseArgs(props);
         const response: string[] = [];
