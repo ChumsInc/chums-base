@@ -8,8 +8,6 @@ const ERR_TOKEN_EXPIRED = 'TokenExpiredError';
 
 /**
  * Validates a JTW Token
- * @param {String} token - A JWT token to be validated
- * @return {Promise<BaseJWTToken|Error>}
  */
 export const validateToken = async (token: string): Promise<BaseJWTToken|UserJWTToken> => {
     try {

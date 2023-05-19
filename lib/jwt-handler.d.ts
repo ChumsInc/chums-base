@@ -2,8 +2,6 @@ import { JwtPayload } from 'jsonwebtoken';
 import { BaseJWTToken, UserJWTToken } from "chums-types";
 /**
  * Validates a JTW Token
- * @param {String} token - A JWT token to be validated
- * @return {Promise<BaseJWTToken|Error>}
  */
 export declare const validateToken: (token: string) => Promise<BaseJWTToken | UserJWTToken>;
 /**
