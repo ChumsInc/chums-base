@@ -28,4 +28,4 @@ export {validateUser, validateRole, loadValidation} from './validate-user.js';
 export {
     validateUserAccount, validateUserAccount as validateAccount, validateUserCustomerAccess
 } from './validate-user-account.js'
-export {CustomerValidationResponse, UserValidation, User, UserAccount, UserProfile} from './types.js'
+export {ValidatedRequest, ValidatedResponse, ValidatedResponseLocals} from './types.js'

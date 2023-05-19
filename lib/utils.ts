@@ -2,15 +2,17 @@ import {NextFunction, Request, Response} from "express";
 // @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 import sqlString from 'sqlstring';
+import {UserRole} from "chums-types";
 
 const namedPlaceholders = NamedPlaceholders();
 const {format} = sqlString;
 
 
 export interface ParseSQLParams {
-    [key:string]: any,
+    [key: string]: any,
 }
-export function parseSQL(query:string, params:ParseSQLParams = {}):string {
+
+export function parseSQL(query: string, params: ParseSQLParams = {}): string {
     const prepared = namedPlaceholders(query, params || {});
     return format(prepared[0], prepared[1]);
 }
@@ -21,16 +23,16 @@ export function parseSQL(query:string, params:ParseSQLParams = {}):string {
  * @param {String} company - Sage Company Code
  * @returns {String} chums|bc
  */
-export function getDBCompany(company:string = ''):string {
+export function getDBCompany(company: string = ''): string {
     switch (String(company).toUpperCase()) {
-    case 'CHI':
-    case 'CHUMS':
-        return 'chums';
-    case 'BCS':
-    case 'BC':
-        return 'bc';
-    default:
-        return 'chums';
+        case 'CHI':
+        case 'CHUMS':
+            return 'chums';
+        case 'BCS':
+        case 'BC':
+            return 'bc';
+        default:
+            return 'chums';
     }
 }
 
@@ -39,26 +41,26 @@ export function getDBCompany(company:string = ''):string {
  * @param {string} company
  * @returns {string} CHI|BCS|TST|BCT|SUH
  */
-export function getSageCompany(company:string = 'chums'):string {
+export function getSageCompany(company: string = 'chums'): string {
     switch (String(company).toLowerCase()) {
-    case 'chums':
-    case 'chi':
-        return 'CHI';
-    case 'bc':
-    case 'bcs':
-        return 'BCS';
-    case 'tst':
-        return 'TST';
-    case 'bct':
-        return 'BCT';
-    case 'suh':
-        return 'SUH';
-    default:
-        return 'CHI';
+        case 'chums':
+        case 'chi':
+            return 'CHI';
+        case 'bc':
+        case 'bcs':
+            return 'BCS';
+        case 'tst':
+            return 'TST';
+        case 'bct':
+            return 'BCT';
+        case 'suh':
+            return 'SUH';
+        default:
+            return 'CHI';
     }
 }
 
-export const mysqlDate = (d:string|number):string|null => {
+export const mysqlDate = (d: string | number): string | null => {
     if (typeof d === 'string' && parseInt(d, 10).toString() === d) {
         d = parseInt(d, 10);
     }
@@ -71,14 +73,14 @@ export const mysqlDate = (d:string|number):string|null => {
         + '-' + String(date.getDate()).padStart(2, '0');
 };
 
-export const validateARDivisionNo = (req:Request, res:Response, next:NextFunction) => {
+export const validateARDivisionNo = (req: Request, res: Response, next: NextFunction) => {
     if (req.params.ARDivisionNo !== undefined && !/^[0-9]{2}$/.test(req.params.ARDivisionNo)) {
         return res.status(404).end();
     }
     next();
 };
 
-export const validateCustomerNo = (req:Request, res:Response, next:NextFunction) => {
+export const validateCustomerNo = (req: Request, res: Response, next: NextFunction) => {
     if (req.params.CustomerNo !== undefined && !/^[0-9A-Z]{3,20}$/.test(req.params.CustomerNo)) {
         return res.status(404).end();
     }
@@ -86,3 +88,7 @@ export const validateCustomerNo = (req:Request, res:Response, next:NextFunction)
 };
 
 export const validateAccountParams = [validateARDivisionNo, validateCustomerNo];
+
+export function isUserRole(role: string | UserRole): role is UserRole {
+    return !(typeof role === 'string') && (role as UserRole).role !== undefined;
+}

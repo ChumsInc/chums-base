@@ -1,5 +1,5 @@
 import Debug from 'debug';
-import fetch from 'node-fetch';
+import fetch, {HeadersInit, RequestInit} from 'node-fetch';
 import {URL} from 'url';
 
 const debug = Debug('chums:local_modules:chums-api');
@@ -9,7 +9,8 @@ const CHUMS_API_PASSWORD = process.env.CHUMS_API_PASSWORD || '';
 const CHUMS_API_HOST = process.env.CHUMS_API_HOST || 'http://localhost';
 const LOCAL_HOSTNAMES = ['localhost', 'intranet.chums.com'];
 
-export interface APIFetchOptions {
+
+export interface APIFetchOptions extends RequestInit {
     headers?: {
         Authorization?: string,
         'Content-Type'?: string

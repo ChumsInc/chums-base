@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { UserRole } from "chums-types";
 export interface ParseSQLParams {
     [key: string]: any;
 }
@@ -19,3 +20,4 @@ export declare const mysqlDate: (d: string | number) => string | null;
 export declare const validateARDivisionNo: (req: Request, res: Response, next: NextFunction) => Response<any, Record<string, any>> | undefined;
 export declare const validateCustomerNo: (req: Request, res: Response, next: NextFunction) => Response<any, Record<string, any>> | undefined;
 export declare const validateAccountParams: ((req: Request, res: Response, next: NextFunction) => Response<any, Record<string, any>> | undefined)[];
+export declare function isUserRole(role: string | UserRole): role is UserRole;

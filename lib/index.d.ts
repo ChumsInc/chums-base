@@ -7,4 +7,4 @@ export { resultToExcelSheet, buildXLSXHeaders, buildWorkBook, addResultToExcelSh
 export { mysqlDate, getDBCompany, getSageCompany, ParseSQLParams, parseSQL, validateAccountParams, validateARDivisionNo, validateCustomerNo } from './utils.js';
 export { validateUser, validateRole, loadValidation } from './validate-user.js';
 export { validateUserAccount, validateUserAccount as validateAccount, validateUserCustomerAccess } from './validate-user-account.js';
-export { CustomerValidationResponse, UserValidation, User, UserAccount, UserProfile } from './types.js';
+export { ValidatedRequest, ValidatedResponse, ValidatedResponseLocals } from './types.js';

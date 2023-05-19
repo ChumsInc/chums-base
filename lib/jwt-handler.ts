@@ -1,9 +1,8 @@
 import Debug from 'debug';
 import jwt, {JwtPayload} from 'jsonwebtoken';
-import {BaseJWTToken} from "./types.js";
+import {BaseJWTToken, UserJWTToken} from "chums-types";
 
 const debug = Debug('chums:local-modules:jwt-handler');
-const {verify, decode} = jwt;
 const {JWT_ISSUER = 'NOT THE ISSUER', JWT_SECRET = 'NOT THE SECRET'} = process.env;
 const ERR_TOKEN_EXPIRED = 'TokenExpiredError';
 
@@ -12,16 +11,16 @@ const ERR_TOKEN_EXPIRED = 'TokenExpiredError';
  * @param {String} token - A JWT token to be validated
  * @return {Promise<BaseJWTToken|Error>}
  */
-export const validateToken = async (token: string): Promise<BaseJWTToken> => {
+export const validateToken = async (token: string): Promise<BaseJWTToken|UserJWTToken> => {
     try {
-        const payload = decode(token);
+        const payload = jwt.decode(token);
         if (!isLocalToken(payload)) {
             if (isBeforeExpiry(token)) {
                 return payload as BaseJWTToken;
             }
             return Promise.reject(new Error('Invalid Token: token may be invalid or expired'));
         }
-        return await verify(token, JWT_SECRET) as BaseJWTToken;
+        return await jwt.verify(token, JWT_SECRET) as BaseJWTToken;
     } catch (err:unknown) {
         if (!(err instanceof Error)) {
             return Promise.reject(err);
@@ -38,7 +37,7 @@ export const validateToken = async (token: string): Promise<BaseJWTToken> => {
  */
 export const isBeforeExpiry = (payload: BaseJWTToken|JwtPayload|null|string): boolean => {
     if (typeof payload === 'string') {
-        payload = decode(payload);
+        payload = jwt.decode(payload);
     }
     if (!payload || typeof payload === 'string') {
         return false;
@@ -51,9 +50,9 @@ export const isBeforeExpiry = (payload: BaseJWTToken|JwtPayload|null|string): bo
 /**
  * Checks to see if a token is locally issued
  */
-export const isLocalToken = (payload: BaseJWTToken|JwtPayload|null|string): boolean => {
+export const isLocalToken = (payload: UserJWTToken|BaseJWTToken|JwtPayload|null|string): payload is UserJWTToken => {
     if (typeof payload === 'string') {
-        payload = decode(payload);
+        payload = jwt.decode(payload);
     }
     if (!payload || typeof payload === 'string') {
         return false;

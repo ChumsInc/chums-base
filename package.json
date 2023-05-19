@@ -15,6 +15,7 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
+    "chums-types": "github:UtahGooner/chums-types",
     "debug": "^4.3.3",
     "typescript": "^5.0.4"
   },

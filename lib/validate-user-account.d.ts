@@ -1,4 +1,4 @@
-import { CustomerValidationResponse } from "./types";
+import { CustomerValidationResponse } from "chums-types";
 /**
  *
  * @param {string|number} id - User ID
