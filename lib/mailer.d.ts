@@ -1,15 +1,17 @@
+/// <reference types="node" />
 export interface Address {
     name: string;
     address: string;
 }
+export type EmailAddressProp = string | Address | (string | Address)[];
 export interface SendMailProps {
-    to: string | string[];
-    cc?: string | string[];
-    bcc?: string | string[];
-    replyTo?: string;
-    from?: string;
+    to: EmailAddressProp;
+    cc?: EmailAddressProp;
+    bcc?: EmailAddressProp;
+    replyTo?: EmailAddressProp;
+    from?: string | Address;
     subject?: string;
-    html: string;
+    html: string | Buffer;
     textContent?: string;
     attachments?: any;
 }

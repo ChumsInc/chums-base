@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import {createTransport} from 'nodemailer';
+import Mail from "nodemailer/lib/mailer";
 
 const debug = Debug('chums:lib:mailer');
 
@@ -8,14 +9,16 @@ export interface Address {
     address: string;
 }
 
+export type EmailAddressProp = string | Address | (string | Address)[];
+
 export interface SendMailProps {
-    to: string | string[],
-    cc?: string | string[],
-    bcc?: string | string[],
-    replyTo?: string,
-    from?: string,
+    to: EmailAddressProp;
+    cc?: EmailAddressProp;
+    bcc?: EmailAddressProp;
+    replyTo?: EmailAddressProp;
+    from?: string | Address,
     subject?: string,
-    html: string,
+    html: string | Buffer,
     textContent?: string,
     attachments?: any,
 }
@@ -42,6 +45,21 @@ export const getLogoImageAttachment = (ts = getTs36()) => {
     };
 };
 
+function isAddress(address: string | Address): address is Address {
+    return typeof address !== "string" && (address as Address).address !== undefined;
+}
+
+function getEmailAddress(email: string | Address): string {
+    return isAddress(email) ? email.address : email;
+}
+
+function addressIncludes(subject: EmailAddressProp, search: string | Address): boolean {
+    if (Array.isArray(subject)) {
+        return subject.map(email => getEmailAddress(email)).includes(getEmailAddress(search))
+    }
+    return getEmailAddress(subject) === getEmailAddress(search);
+}
+
 export const sendGmail = async ({
                                     to = [],
                                     cc = [],
@@ -54,16 +72,24 @@ export const sendGmail = async ({
                                     attachments
                                 }: SendMailProps) => {
     try {
-        to = !Array.isArray(to) ? [to] : to;
-        cc = !Array.isArray(cc) ? [cc] : cc;
-        bcc = !Array.isArray(bcc) ? [bcc] : bcc;
+        const _cc = Array.isArray(cc) ? cc : (!!cc ? [cc] : []);
+        const _to = Array.isArray(to) ? to : [to];
+        const _bcc = Array.isArray(bcc) ? bcc : (!!bcc ? [bcc] : []);
 
         if (!from) {
             from = `"Chums AutoMailer" <automated@chums.com>`;
         }
 
-        if (replyTo && !(cc.includes(replyTo) || bcc.includes(replyTo))) {
-            cc.push(replyTo);
+        if (replyTo) {
+            if (Array.isArray(replyTo)) {
+                replyTo.forEach(email => {
+                    if (!addressIncludes(_cc, email)) {
+                        _cc.push(email);
+                    }
+                })
+            } else if (!addressIncludes(_cc, replyTo)) {
+                _cc.push(replyTo);
+            }
         }
 
         const transporter = createTransport({
@@ -75,22 +101,22 @@ export const sendGmail = async ({
                 pass: process.env.GMAIL_APP_PASSWORD,
             }
         });
-        let mailOptions = {
+        let mailOptions: Mail.Options = {
             from,
-            to,
-            cc,
-            bcc,
+            to: _to,
+            cc: _cc,
+            bcc: _bcc,
             replyTo,
             subject,
             html,
             text: textContent,
             attachments
         };
-        debug('sendGmail()', {to, from, subject, replyTo});
+        debug('sendGmail()', {to: _to, from, subject, replyTo});
 
         // return mailOptions;
         return await transporter.sendMail(mailOptions);
-    } catch (err:unknown) {
+    } catch (err: unknown) {
         if (err instanceof Error) {
             debug("sendGmail()", err.message);
             return Promise.reject(err);
