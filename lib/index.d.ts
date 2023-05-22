@@ -1,5 +1,5 @@
-export { apiFetch, APIFetchOptions } from './api-fetch.js';
-export { sendEmail, sendGmail, getLogoImageAttachment, getTs, getTs36, SendMailProps, Address } from './mailer.js';
+export { apiFetch, APIFetchOptions, apiFetchJSON } from './api-fetch.js';
+export { sendEmail, sendGmail, getLogoImageAttachment, getTs, getTs36, SendMailProps, Address, EmailAddressProp } from './mailer.js';
 export { mysql2Pool, mysql2Pool as pool, getConnection } from './mysql.js';
 export { execQuery, query, QueryResult, QueryArgs, Field, query as SageODBCQuery } from './query.js';
 export { default as sageOdbc, default as SageODBC, SageODBCResult } from './sage-odbc.js';

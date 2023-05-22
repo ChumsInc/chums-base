@@ -20,7 +20,7 @@ export interface APIFetchOptions extends RequestInit {
     referrer?: string,
 }
 
-export async function apiFetch(url: string | URL = '', options: APIFetchOptions = {}) {
+export async function apiFetch(url: string | URL, options: APIFetchOptions = {}) {
     try {
         if (typeof url === 'string') {
             url = new URL(url, CHUMS_API_HOST);
@@ -50,5 +50,19 @@ export async function apiFetch(url: string | URL = '', options: APIFetchOptions 
             return Promise.reject(err);
         }
         return Promise.reject(err);
+    }
+}
+
+export async function apiFetchJSON<T = unknown>(url: string | URL, options: APIFetchOptions = {}): Promise<T> {
+    try {
+        const res = await apiFetch(url, options);
+        return await res.json() as T;
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            console.debug("apiFetchJSON()", err.message);
+            return Promise.reject(err);
+        }
+        console.debug("apiFetchJSON()", err);
+        return Promise.reject(new Error('Error in apiFetchJSON()'));
     }
 }

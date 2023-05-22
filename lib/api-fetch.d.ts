@@ -10,4 +10,5 @@ export interface APIFetchOptions extends RequestInit {
     method?: string;
     referrer?: string;
 }
-export declare function apiFetch(url?: string | URL, options?: APIFetchOptions): Promise<import("node-fetch").Response>;
+export declare function apiFetch(url: string | URL, options?: APIFetchOptions): Promise<import("node-fetch").Response>;
+export declare function apiFetchJSON<T = unknown>(url: string | URL, options?: APIFetchOptions): Promise<T>;
