@@ -77,13 +77,13 @@ export async function loadValidation(req: Request): Promise<UserValidationRespon
         if (!!user && !!pass) {
             const credentials = Buffer.from(`${user}:${pass}`).toString('base64');
             headers.set('Authorization', `Basic ${credentials}`);
-        } else if (!!session) {
-            url += `/${encodeURIComponent(session)}`;
         } else if (!!token) {
             url += '/google';
             fetchOptions.method = 'post';
             fetchOptions.body = JSON.stringify({token});
             headers.set('Content-Type', 'application/json');
+        } else if (!!session) {
+            url += `/${encodeURIComponent(session)}`;
         }
 
         fetchOptions.headers = headers;
