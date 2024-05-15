@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';;
 import {NextFunction, Request, Response} from 'express'
 import {default as fetch, Headers, RequestInit} from 'node-fetch';
 import {UserRole, UserValidationResponse} from 'chums-types'

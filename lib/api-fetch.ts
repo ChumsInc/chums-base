@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';
 import fetch, {RequestInit} from 'node-fetch';
 import {URL} from 'node:url';
 
