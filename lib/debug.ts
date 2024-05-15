@@ -1,6 +1,6 @@
 import winston, {LoggerOptions} from 'winston';
 import 'winston-daily-rotate-file';
-import {TransformableInfo} from "logform";
+import type {TransformableInfo} from "logform";
 import util from 'node:util'
 import path from 'node:path';
 
@@ -31,9 +31,7 @@ function initLogger(options?:LoggerOptions) {
         options = {};
     }
     const logFormat = winston.format.printf(logTemplate);
-    if (!process.env.DEBUG_LOG_PATH) {
-        return Promise.reject('Invalid env DEBUG_LOG_PATH');
-    }
+    const logPath = process.env.DEBUG_LOG_PATH ?? 'logs';
     logger.instance = winston.createLogger({
         level: 'info',
         format: winston.format.combine(winston.format.timestamp(), logFormat),
@@ -41,12 +39,12 @@ function initLogger(options?:LoggerOptions) {
             new winston.transports.DailyRotateFile({
                 maxSize: '1m',
                 maxFiles: '180d',
-                filename: path.resolve(path.join(process.cwd(), process.env.DEBUG_LOG_PATH, 'debug-%DATE%.log')),
+                filename: path.resolve(path.join(process.cwd(), logPath, 'debug-%DATE%.log')),
                 datePattern: 'YYYY-MM-DD',
                 zippedArchive: true,
             }),
             new winston.transports.File({
-                filename: path.resolve(path.join(process.cwd(), process.env.DEBUG_LOG_PATH, 'debug.log')),
+                filename: path.resolve(path.join(process.cwd(), logPath, 'debug.log')),
                 level: 'error',
                 format: winston.format.json()
             }),
