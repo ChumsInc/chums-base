@@ -34,4 +34,4 @@ export {
     ValidationResult
 } from './validate-user-account.js'
 export {ValidatedRequest, ValidatedResponse, ValidatedResponseLocals} from './types.js'
-export * as DebugLogger from './debug.js'
+export {Debug} from './debug.js'
