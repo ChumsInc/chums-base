@@ -8,3 +8,4 @@ export { mysqlDate, getDBCompany, getSageCompany, ParseSQLParams, parseSQL, vali
 export { validateUser, validateRole, loadValidation, roleName } from './validate-user.js';
 export { validateUserAccount, validateUserAccount as validateAccount, validateUserCustomerAccess, ValidateUserAccountProps, ValidationResult } from './validate-user-account.js';
 export { ValidatedRequest, ValidatedResponse, ValidatedResponseLocals } from './types.js';
+export { Debug } from './debug.js';

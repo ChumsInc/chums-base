@@ -15,7 +15,8 @@ const logger:LoggerInstance = {
     instance: null,
 }
 
-export function Debug(prefix: string, options?:LoggerOptions) {
+
+export function Debug(prefix: string, options?:LoggerOptions):(...args:any[]) => void {
     if (!logger.instance) {
         initLogger(options);
     }
