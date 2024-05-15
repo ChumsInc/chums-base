@@ -1,4 +1,4 @@
-/// <reference types="node" />
+/// <reference types="node" resolution-mode="require"/>
 export interface Address {
     name: string;
     address: string;
@@ -27,5 +27,5 @@ export declare const getLogoImageAttachment: (ts?: string) => {
     path: string;
     cid: string;
 };
-export declare const sendGmail: ({ to, cc, bcc, replyTo, from, subject, html, textContent, attachments }: SendMailProps) => Promise<import("nodemailer/lib/smtp-transport").SentMessageInfo>;
-export declare const sendEmail: ({ to, cc, bcc, replyTo, from, subject, html, textContent, attachments }: SendMailProps) => Promise<import("nodemailer/lib/smtp-transport").SentMessageInfo>;
+export declare const sendGmail: ({ to, cc, bcc, replyTo, from, subject, html, textContent, attachments }: SendMailProps) => Promise<import("nodemailer/lib/smtp-transport/index.js").SentMessageInfo>;
+export declare const sendEmail: ({ to, cc, bcc, replyTo, from, subject, html, textContent, attachments }: SendMailProps) => Promise<import("nodemailer/lib/smtp-transport/index.js").SentMessageInfo>;

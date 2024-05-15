@@ -1,4 +1,4 @@
-/// <reference types="node" />
+/// <reference types="node" resolution-mode="require"/>
 import { RequestInit } from 'node-fetch';
 import { URL } from 'node:url';
 export interface APIFetchOptions extends RequestInit {
