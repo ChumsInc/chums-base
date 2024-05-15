@@ -17,7 +17,7 @@ export interface SageODBCResult<T> {
 }
 
 const namedPlaceholders = NamedPlaceholders();
-const debug = Debug('chums:local_modules:chums-base:sage-odbc');
+const debug = Debug('chums:chums-base:sage-odbc');
 
 
 const connectionString = (company: string = 'CHI'): string => {
