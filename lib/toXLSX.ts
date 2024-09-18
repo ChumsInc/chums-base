@@ -1,8 +1,8 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';;
 import {SheetAOAOpts, utils, WorkSheet, write, WritingOptions} from 'xlsx';
 import {RowDataPacket} from "mysql2";
 
-const debug = Debug('chums:local-modules:toXLSX');
+const debug = Debug('chums:chums-base:toXLSX');
 export const decode_cell = utils.decode_cell;
 export const encode_cell = utils.encode_cell;
 

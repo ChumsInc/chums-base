@@ -1,3 +1,4 @@
+/// <reference types="node" resolution-mode="require"/>
 export interface Address {
     name: string;
     address: string;

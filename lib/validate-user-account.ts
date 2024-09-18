@@ -1,9 +1,9 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';;
 import {apiFetch} from './api-fetch.js';
 import {getDBCompany} from './utils.js';
 import {CustomerValidationResponse} from "chums-types";
 
-const debug = Debug('chums:local-modules:validate-user-account');
+const debug = Debug('chums:chums-base:validate-user-account');
 
 const VALIDATE_URL = '/api/user/:id/validate/account/:Company/:ARDivisionNo-:CustomerNo';
 
@@ -30,7 +30,7 @@ export async function validateUserAccount({
             .replace(':Company', encodeURIComponent(getDBCompany(Company)))
             .replace(':ARDivisionNo', encodeURIComponent(ARDivisionNo))
             .replace(':CustomerNo', encodeURIComponent(CustomerNo));
-        const res = await apiFetch(url, {referrer: 'chums:local-modules:validate-user'});
+        const res = await apiFetch(url, {referrer: 'chums:chums-base:validate-user'});
         if (!res.ok) {
             debug('validateAccount()', res.status, res.statusText);
             return Promise.reject(new Error(`Error ${res.status}: ${res.statusText}`));

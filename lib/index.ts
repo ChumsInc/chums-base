@@ -34,3 +34,4 @@ export {
     ValidationResult
 } from './validate-user-account.js'
 export {ValidatedRequest, ValidatedResponse, ValidatedResponseLocals} from './types.js'
+export {Debug} from './debug.js'

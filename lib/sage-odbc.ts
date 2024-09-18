@@ -2,7 +2,7 @@
  * Created by steve on 12/16/2016.
  */
 
-import Debug from 'debug';
+import {Debug} from './debug.js';;
 import adodb, {open} from 'node-adodb';
 import sqlString from 'sqlstring';
 import {getSageCompany} from './utils.js';
@@ -17,7 +17,7 @@ export interface SageODBCResult<T> {
 }
 
 const namedPlaceholders = NamedPlaceholders();
-const debug = Debug('chums:local_modules:chums-base:sage-odbc');
+const debug = Debug('chums:chums-base:sage-odbc');
 
 
 const connectionString = (company: string = 'CHI'): string => {

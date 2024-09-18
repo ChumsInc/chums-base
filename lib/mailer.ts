@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';;
 import {createTransport} from 'nodemailer';
 import Mail from "nodemailer/lib/mailer";
 

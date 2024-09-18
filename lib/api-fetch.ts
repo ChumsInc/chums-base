@@ -1,8 +1,8 @@
-import Debug from 'debug';
+import {Debug} from './debug.js';
 import fetch, {RequestInit} from 'node-fetch';
 import {URL} from 'node:url';
 
-const debug = Debug('chums:local_modules:chums-api');
+const debug = Debug('chums:chums-base:chums-api');
 
 const CHUMS_API_USERNAME = process.env.CHUMS_API_USERNAME || '';
 const CHUMS_API_PASSWORD = process.env.CHUMS_API_PASSWORD || '';
