@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from 'express'
 import {default as fetch, Headers, RequestInit} from 'node-fetch';
 import {UserRole, UserValidationResponse} from 'chums-types'
 import {basicAuth, jwtToken} from './auth.js';
-import {ValidatedRequest, ValidatedResponse} from "./types.js";
+import type {ValidatedRequest, ValidatedResponse} from "./types.d.ts";
 import {isBeforeExpiry, isLocalToken, validateToken} from './jwt-handler.js';
 import {isUserRole} from "./utils.js";
 
@@ -17,7 +17,7 @@ const API_HOST = process.env.CHUMS_API_HOST || 'http://localhost';
  * - On success populates req.userAuth = {valid, status, profile} and executes next()
  * - On failure sends status 401 {error: 401, status: 'StatusText'}
  */
-export async function validateUser(req: ValidatedRequest, res: Response, next: NextFunction): Promise<void> {
+export async function validateUser(req: ValidatedRequest & Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const {valid, status, profile} = await loadValidation(req);
         if (!valid) {
@@ -69,7 +69,7 @@ export async function loadValidation(req: Request): Promise<UserValidationRespon
 
         const fetchOptions: RequestInit = {};
         const headers = new Headers();
-        headers.set('X-Forwarded-For', req.ip);
+        headers.set('X-Forwarded-For', req.ip ?? '');
         headers.set('referrer', req.get('referrer') || req.originalUrl);
 
         let url = `${API_HOST}/api/user/validate`;
@@ -115,7 +115,7 @@ export function roleName(role: string | UserRole): string {
  *  - On failure sends status 403 Forbidden, {error: 403, status: 'Forbidden'}
  */
 export const validateRole = (validRoles: string | string[] = []) =>
-    (req: Request, res: ValidatedResponse, next: NextFunction) => {
+    (req: Request, res: ValidatedResponse & Response, next: NextFunction) => {
         if (res.locals.profile && res.locals.profile.roles) {
             const {roles = []} = res.locals.profile;
             if (!Array.isArray(validRoles)) {
