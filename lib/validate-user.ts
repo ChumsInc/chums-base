@@ -1,7 +1,7 @@
 import {Debug} from './debug.js';;
 import {NextFunction, Request, Response} from 'express'
 import {default as fetch, Headers, RequestInit} from 'node-fetch';
-import {UserRole, UserValidationResponse} from 'chums-types'
+import {UserRole, UserValidationResponse, ValidatedUser} from 'chums-types'
 import {basicAuth, jwtToken} from './auth.js';
 import {ValidatedRequest, ValidatedResponse} from "./types.js";
 import {isBeforeExpiry, isLocalToken, validateToken} from './jwt-handler.js';
@@ -17,15 +17,15 @@ const API_HOST = process.env.CHUMS_API_HOST || 'http://localhost';
  * - On success populates req.userAuth = {valid, status, profile} and executes next()
  * - On failure sends status 401 {error: 401, status: 'StatusText'}
  */
-export async function validateUser(req: ValidatedRequest, res: Response, next: NextFunction): Promise<void> {
+export async function validateUser(req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction): Promise<void> {
     try {
         const {valid, status, profile} = await loadValidation(req);
-        if (!valid) {
+        if (!valid || !profile) {
             res.status(401).json({error: 401, status});
             return;
         }
         res.locals.profile = profile;
-        req.userAuth = {valid, status, profile};
+        // req.userAuth = {valid, status, profile};
         next();
     } catch (err: unknown) {
         if (err instanceof Error) {
@@ -72,7 +72,7 @@ export async function loadValidation(req: Request): Promise<UserValidationRespon
         headers.set('X-Forwarded-For', req.ip ?? 'undefined');
         headers.set('referrer', req.get('referrer') || req.originalUrl);
 
-        let url = `${API_HOST}/api/user/validate`;
+        let url = `${API_HOST}/api/user/validate.json`;
 
         if (!!user && !!pass) {
             const credentials = Buffer.from(`${user}:${pass}`).toString('base64');
@@ -115,7 +115,7 @@ export function roleName(role: string | UserRole): string {
  *  - On failure sends status 403 Forbidden, {error: 403, status: 'Forbidden'}
  */
 export const validateRole = (validRoles: string | string[] = []) =>
-    (req: Request, res: ValidatedResponse, next: NextFunction) => {
+    (req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction) => {
         if (res.locals.profile && res.locals.profile.roles) {
             const {roles = []} = res.locals.profile;
             if (!Array.isArray(validRoles)) {
@@ -127,7 +127,7 @@ export const validateRole = (validRoles: string | string[] = []) =>
                 return next();
             }
         }
-        debug('validateRole() Not Authorized', res.locals?.profile?.user?.id, validRoles);
+        debug('validateRole() Not Authorized', res.locals.profile?.user?.id, validRoles);
         res.status(403).json({error: 403, status: 'Forbidden'});
     }
 

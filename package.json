@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "auto-changelog": "^2.4.0",
-    "chums-types": "github:UtahGooner/chums-types",
+    "chums-types": "github:ChumsInc/chums-types",
     "typescript": "^5.0.4",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"

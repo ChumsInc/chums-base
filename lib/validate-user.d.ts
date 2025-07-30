@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserRole, UserValidationResponse } from 'chums-types';
-import { ValidatedRequest, ValidatedResponse } from "./types.js";
+import { UserRole, UserValidationResponse, ValidatedUser } from 'chums-types';
 /**
  * Requests validation from CHUMS /api/user service
  * - On success populates res.locals.profile = {user, roles, accounts} and executes next()
  * - On success populates req.userAuth = {valid, status, profile} and executes next()
  * - On failure sends status 401 {error: 401, status: 'StatusText'}
  */
-export declare function validateUser(req: ValidatedRequest, res: Response, next: NextFunction): Promise<void>;
+export declare function validateUser(req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction): Promise<void>;
 /**
  * Executes validation request
  *  - validates JWT token from Authorization header "Bearer asdasd...asd" (from a standalone/web app)
@@ -21,4 +20,4 @@ export declare function roleName(role: string | UserRole): string;
  *  - On success executes next()
  *  - On failure sends status 403 Forbidden, {error: 403, status: 'Forbidden'}
  */
-export declare const validateRole: (validRoles?: string | string[]) => (req: Request, res: ValidatedResponse, next: NextFunction) => void;
+export declare const validateRole: (validRoles?: string | string[]) => (req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction) => void;
