@@ -2,7 +2,7 @@ import {Debug} from './debug.js';;
 import {spawn} from 'child_process';
 // @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
-import {format} from 'sqlstring';
+import sqlString from 'sqlstring';
 
 const debug = Debug('chums:base:query');
 const queryExecutable = process.env.SAGE_QUERY_EXECUTABLE || 'D:\\www\\SageQuery\\SageQuery.exe';
@@ -92,7 +92,7 @@ export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<
 export async function query<T = any>(company: string, sql: string, params: object = {}): Promise<QueryResult> {
     try {
         const prepared = namedPlaceholders(sql, params || {});
-        const parsedSQL = format(prepared[0], prepared[1]);
+        const parsedSQL = sqlString.format(prepared[0], prepared[1]);
         return await execQuery<T>({company, sql: parsedSQL})
     } catch (err: unknown) {
         if (err instanceof Error) {
