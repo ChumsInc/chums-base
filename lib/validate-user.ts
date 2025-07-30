@@ -1,9 +1,8 @@
-import {Debug} from './debug.js';;
+import {Debug} from './debug.js';
 import {NextFunction, Request, Response} from 'express'
 import {default as fetch, Headers, RequestInit} from 'node-fetch';
 import {UserRole, UserValidationResponse, ValidatedUser} from 'chums-types'
 import {basicAuth, jwtToken} from './auth.js';
-import {ValidatedRequest, ValidatedResponse} from "./types.js";
 import {isBeforeExpiry, isLocalToken, validateToken} from './jwt-handler.js';
 import {isUserRole} from "./utils.js";
 
