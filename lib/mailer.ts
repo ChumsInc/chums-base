@@ -1,6 +1,5 @@
-import {Debug} from './debug.js';;
-import {createTransport} from 'nodemailer';
-import Mail from "nodemailer/lib/mailer";
+import {Debug} from './debug.js';
+import {createTransport, SendMailOptions} from 'nodemailer';
 
 const debug = Debug('chums:lib:mailer');
 
@@ -101,7 +100,7 @@ export const sendGmail = async ({
                 pass: process.env.GMAIL_APP_PASSWORD,
             }
         });
-        let mailOptions: Mail.Options = {
+        let mailOptions: SendMailOptions = {
             from,
             to: _to,
             cc: _cc,
