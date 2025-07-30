@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express";
-// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 import sqlString from 'sqlstring';
 import {UserRole} from "chums-types";

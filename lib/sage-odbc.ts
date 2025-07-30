@@ -6,7 +6,6 @@ import {Debug} from './debug.js';;
 import adodb, {open} from 'node-adodb';
 import sqlString from 'sqlstring';
 import {getSageCompany} from './utils.js';
-// @ts-ignore
 import NamedPlaceholders from 'named-placeholders';
 
 const {escape, format} = sqlString;
