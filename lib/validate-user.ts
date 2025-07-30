@@ -13,8 +13,7 @@ const API_HOST = process.env.CHUMS_API_HOST || 'http://localhost';
 /**
  * Requests validation from CHUMS /api/user service
  * - On success populates res.locals.profile = {user, roles, accounts} and executes next()
- * - On success populates req.userAuth = {valid, status, profile} and executes next()
- * - On failure sends status 401 {error: 401, status: 'StatusText'}
+ * - On failure sends status 401, {error: 401, status: UserValidationResponse.status}
  */
 export async function validateUser(req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction): Promise<void> {
     try {
@@ -24,7 +23,6 @@ export async function validateUser(req: Request, res: Response<unknown, Validate
             return;
         }
         res.locals.profile = profile;
-        // req.userAuth = {valid, status, profile};
         next();
     } catch (err: unknown) {
         if (err instanceof Error) {

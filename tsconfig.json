@@ -1,10 +1,11 @@
 {
-  "extends": "@tsconfig/node19",
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["lib/**/*"],
   "compilerOptions": {
-    "allowJs": true,
-    "emitDeclarationOnly": false,
-    "module": "Node16",
     "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "dist",
+    "module": "Node16",
   },
   "exclude": [
     "node_modules"

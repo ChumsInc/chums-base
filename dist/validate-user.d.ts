@@ -3,8 +3,7 @@ import { UserRole, UserValidationResponse, ValidatedUser } from 'chums-types';
 /**
  * Requests validation from CHUMS /api/user service
  * - On success populates res.locals.profile = {user, roles, accounts} and executes next()
- * - On success populates req.userAuth = {valid, status, profile} and executes next()
- * - On failure sends status 401 {error: 401, status: 'StatusText'}
+ * - On failure sends status 401, {error: 401, status: UserValidationResponse.status}
  */
 export declare function validateUser(req: Request, res: Response<unknown, ValidatedUser>, next: NextFunction): Promise<void>;
 /**
