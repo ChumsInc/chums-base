@@ -2,7 +2,7 @@
  * Created by steve on 12/16/2016.
  */
 
-import {Debug} from './debug.js';;
+import {Debug} from './debug.js';
 import adodb, {open} from 'node-adodb';
 import sqlString from 'sqlstring';
 import {getSageCompany} from './utils.js';
