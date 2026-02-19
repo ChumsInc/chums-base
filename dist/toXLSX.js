@@ -1,42 +1,40 @@
 import { Debug } from './debug.js';
-;
 import { utils, write } from 'xlsx';
 const debug = Debug('chums:chums-base:toXLSX');
 export const decode_cell = utils.decode_cell;
 export const encode_cell = utils.encode_cell;
+export const { aoa_to_sheet, json_to_sheet, sheet_add_json, sheet_add_aoa } = utils;
 export function parseDataForAOA(data, columnNames, onlyColumnNames) {
-    let rows = [];
     let fields = [];
-    let columns = [];
     if (onlyColumnNames) {
         fields = Object.keys(columnNames);
-        columns = [...fields];
         if (data.length) {
             fields.forEach(field => {
                 if (data[0][field] === undefined) {
-                    debug('resultToExcelSheet()', `field '${field}' does not exist in data.`);
+                    debug('resultToExcelSheet()', `field '${String(field)}' does not exist in data.`);
                 }
             });
         }
-        rows = [
-            columns.map(col => columnNames[col] || col),
-            ...data.map(row => columns.map(col => row[col] || null))
+        return [
+            fields.map(field => columnNames[field] ?? field),
+            ...data.map(row => {
+                return fields.map(field => row[field] ?? null);
+            })
         ];
     }
-    else {
-        if (data.length) {
-            fields = Object.keys(data[0]);
-            columns = [...fields];
-            rows = [
-                columns.map(col => columnNames[col] || col),
-                ...data.map(row => Object.values(row))
-            ];
-        }
+    if (data.length) {
+        fields = Object.keys(data[0]);
+        return [
+            fields,
+            ...data.map(row => {
+                return fields.map(field => row[field] ?? null);
+            })
+        ];
     }
-    return rows;
+    return [];
 }
 export function resultToExcelSheet(data, columnNames, onlyColumnNames) {
-    let rows = parseDataForAOA(data, columnNames, onlyColumnNames);
+    const rows = parseDataForAOA(data, columnNames, onlyColumnNames);
     return utils.aoa_to_sheet(rows);
 }
 export function addResultToExcelSheet(workSheet, newData, options) {
@@ -55,8 +53,8 @@ export function buildWorkBook(sheets, options = {}) {
     return write({ SheetNames: sheetNames, Sheets: sheets }, { ...defaultOptions, ...options });
 }
 export function buildXLSXHeaders(filename) {
-    return {
-        'Content-Disposition': `attachment; filename=${filename.replace(/[\s]+/g, '_')}`,
-        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    };
+    const headers = new Headers();
+    headers.set('Content-Disposition', `attachment; filename=${filename.replace(/[\s]+/g, '_')}`);
+    headers.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    return headers;
 }

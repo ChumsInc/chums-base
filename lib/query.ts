@@ -17,12 +17,12 @@ export interface QueryArgs {
     sql: string,
 }
 
-export interface Field<T = any> {
+export interface Field<T = unknown> {
     Name: keyof T | string,
     FieldType: string,
 }
 
-export interface QueryResult<T = any> {
+export interface QueryResult<T = unknown> {
     Company: string,
     Fields: Field<T>[],
     Error?: string | null,
@@ -49,7 +49,7 @@ function parseArgs({dsn, company, offset = 0, limit = 0, sql}: QueryArgs): strin
 }
 
 
-export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<T>> {
+export async function execQuery<T = unknown>(props: QueryArgs): Promise<QueryResult<T>> {
     try {
         const args = parseArgs(props);
         const response: string[] = [];
@@ -88,7 +88,7 @@ export async function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<
  * @param {object} [params]
  * @return {Promise<*|{Company, Fields[], Error, Data[]}>}
  */
-export async function query<T = any>(company: string, sql: string, params: object = {}): Promise<QueryResult> {
+export async function query<T = unknown>(company: string, sql: string, params: object = {}): Promise<QueryResult<T>> {
     try {
         const prepared = namedPlaceholders(sql, params || {});
         const parsedSQL = sqlString.format(prepared[0], prepared[1]);

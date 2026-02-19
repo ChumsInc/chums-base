@@ -1,3 +1,4 @@
+import { Attachment } from "nodemailer/lib/mailer/index.js";
 export interface Address {
     name: string;
     address: string;
@@ -12,7 +13,7 @@ export interface SendMailProps {
     subject?: string;
     html: string | Buffer;
     textContent?: string;
-    attachments?: any;
+    attachments?: Attachment[];
 }
 export declare const getTs: () => number;
 export declare const getTs36: () => string;

@@ -1,4 +1,4 @@
-import {Locals, Request, Response} from "express";
+import {Locals} from "express";
 import {UserValidationResponse, ValidatedUserProfile} from "chums-types";
 
 

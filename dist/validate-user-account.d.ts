@@ -1,12 +1,16 @@
-import { CustomerValidationResponse } from "chums-types";
 export interface ValidateUserAccountProps {
     id: string | number;
-    Company: string;
     ARDivisionNo: string;
     CustomerNo: string;
+    ShipToCode?: string | null;
+}
+export interface ValidateCustomerAccessResponse {
+    billTo: boolean;
+    shipTo: string[];
+    canSetDefaultShipTo: boolean;
 }
 export interface ValidationResult {
     success?: boolean;
 }
-export declare function validateUserAccount({ id, Company, ARDivisionNo, CustomerNo }: ValidateUserAccountProps): Promise<boolean>;
-export declare function validateUserCustomerAccess({ id, Company, ARDivisionNo, CustomerNo }: ValidateUserAccountProps): Promise<CustomerValidationResponse>;
+export declare function validateUserAccount({ id, ARDivisionNo, CustomerNo, ShipToCode, }: ValidateUserAccountProps): Promise<boolean>;
+export declare function validateUserCustomerAccess({ id, ARDivisionNo, CustomerNo, ShipToCode }: ValidateUserAccountProps): Promise<ValidateCustomerAccessResponse>;

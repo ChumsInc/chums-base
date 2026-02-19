@@ -13,7 +13,7 @@ declare class SageODBC {
     static getConnection(company?: string): Promise<SageODBC>;
     static sql(query: string, params?: object): string;
     query<T>(query: string, params?: object): Promise<SageODBCResult<T>>;
-    schema<T>(type: number, criteria?: any[] | undefined, id?: string | undefined): Promise<T | null>;
+    schema<T>(type: number, criteria?: unknown[] | undefined, id?: string | undefined): Promise<T | null>;
     static escape(str: string): string;
 }
 export default SageODBC;

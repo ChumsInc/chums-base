@@ -5,18 +5,18 @@ export interface QueryArgs {
     limit?: number;
     sql: string;
 }
-export interface Field<T = any> {
+export interface Field<T = unknown> {
     Name: keyof T | string;
     FieldType: string;
 }
-export interface QueryResult<T = any> {
+export interface QueryResult<T = unknown> {
     Company: string;
     Fields: Field<T>[];
     Error?: string | null;
     Data: Record<string, T>[];
     Query: string;
 }
-export declare function execQuery<T = any>(props: QueryArgs): Promise<QueryResult<T>>;
+export declare function execQuery<T = unknown>(props: QueryArgs): Promise<QueryResult<T>>;
 /**
  *
  * @param {string} company
@@ -24,4 +24,4 @@ export declare function execQuery<T = any>(props: QueryArgs): Promise<QueryResul
  * @param {object} [params]
  * @return {Promise<*|{Company, Fields[], Error, Data[]}>}
  */
-export declare function query<T = any>(company: string, sql: string, params?: object): Promise<QueryResult>;
+export declare function query<T = unknown>(company: string, sql: string, params?: object): Promise<QueryResult<T>>;

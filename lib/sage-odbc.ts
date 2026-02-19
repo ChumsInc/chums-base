@@ -78,7 +78,7 @@ class SageODBC {
         }
     }
 
-    async schema<T>(type: number, criteria?: any[] | undefined, id?: string | undefined): Promise<T | null> {
+    async schema<T>(type: number, criteria?: unknown[] | undefined, id?: string | undefined): Promise<T | null> {
         return this.connection?.schema<T>(type, criteria, id) || null;
     }
 

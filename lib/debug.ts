@@ -16,11 +16,11 @@ const logger:LoggerInstance = {
 }
 
 
-export function Debug(prefix: string, options?:LoggerOptions):(...args:any[]) => void {
+export function Debug(prefix: string, options?:LoggerOptions):(...args:unknown[]) => void {
     if (!logger.instance) {
         initLogger(options);
     }
-    return (...args:any[]) => {
+    return (...args:unknown[]) => {
         if (logger.instance) {
             logger.instance.log({level: 'info', label: prefix, message: util.format(...args)});
         }

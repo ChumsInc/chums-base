@@ -1,5 +1,6 @@
 import {Debug} from './debug.js';
 import {createTransport, SendMailOptions} from 'nodemailer';
+import {Attachment} from "nodemailer/lib/mailer/index.js";
 
 const debug = Debug('chums:lib:mailer');
 
@@ -19,7 +20,7 @@ export interface SendMailProps {
     subject?: string,
     html: string | Buffer,
     textContent?: string,
-    attachments?: any,
+    attachments?: Attachment[],
 }
 
 
@@ -71,9 +72,9 @@ export const sendGmail = async ({
                                     attachments
                                 }: SendMailProps) => {
     try {
-        const _cc = Array.isArray(cc) ? cc : (!!cc ? [cc] : []);
+        const _cc = Array.isArray(cc) ? cc : (cc ? [cc] : []);
         const _to = Array.isArray(to) ? to : [to];
-        const _bcc = Array.isArray(bcc) ? bcc : (!!bcc ? [bcc] : []);
+        const _bcc = Array.isArray(bcc) ? bcc : (bcc ? [bcc] : []);
 
         if (!from) {
             from = `"Chums AutoMailer" <automated@chums.com>`;
@@ -100,7 +101,7 @@ export const sendGmail = async ({
                 pass: process.env.GMAIL_APP_PASSWORD,
             }
         });
-        let mailOptions: SendMailOptions = {
+        const mailOptions: SendMailOptions = {
             from,
             to: _to,
             cc: _cc,

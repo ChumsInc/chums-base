@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRole } from "chums-types";
 export interface ParseSQLParams {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 export declare function parseSQL(query: string, params?: ParseSQLParams): string;
 /**

@@ -33,9 +33,9 @@ function addressIncludes(subject, search) {
 }
 export const sendGmail = async ({ to = [], cc = [], bcc = [], replyTo, from, subject, html, textContent, attachments }) => {
     try {
-        const _cc = Array.isArray(cc) ? cc : (!!cc ? [cc] : []);
+        const _cc = Array.isArray(cc) ? cc : (cc ? [cc] : []);
         const _to = Array.isArray(to) ? to : [to];
-        const _bcc = Array.isArray(bcc) ? bcc : (!!bcc ? [bcc] : []);
+        const _bcc = Array.isArray(bcc) ? bcc : (bcc ? [bcc] : []);
         if (!from) {
             from = `"Chums AutoMailer" <automated@chums.com>`;
         }
@@ -60,7 +60,7 @@ export const sendGmail = async ({ to = [], cc = [], bcc = [], replyTo, from, sub
                 pass: process.env.GMAIL_APP_PASSWORD,
             }
         });
-        let mailOptions = {
+        const mailOptions = {
             from,
             to: _to,
             cc: _cc,

@@ -8,7 +8,7 @@ const {format} = sqlString;
 
 
 export interface ParseSQLParams {
-    [key: string]: any,
+    [key: string]: unknown,
 }
 
 export function parseSQL(query: string, params: ParseSQLParams = {}): string {
