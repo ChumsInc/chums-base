@@ -73,14 +73,14 @@ export const mysqlDate = (d: string | number): string | null => {
 };
 
 export const validateARDivisionNo = (req: Request, res: Response, next: NextFunction) => {
-    if (req.params.ARDivisionNo !== undefined && !/^[0-9]{2}$/.test(req.params.ARDivisionNo)) {
+    if (req.params.ARDivisionNo !== undefined && !/^[0-9]{2}$/.test(req.params.ARDivisionNo as string)) {
         return res.status(404).end();
     }
     next();
 };
 
 export const validateCustomerNo = (req: Request, res: Response, next: NextFunction) => {
-    if (req.params.CustomerNo !== undefined && !/^[0-9A-Z]{3,20}$/.test(req.params.CustomerNo)) {
+    if (req.params.CustomerNo !== undefined && !/^[0-9A-Z]{3,20}$/.test(req.params.CustomerNo as string)) {
         return res.status(404).end();
     }
     next();

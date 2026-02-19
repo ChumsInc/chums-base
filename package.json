@@ -20,17 +20,21 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tsconfig/node20": "^20.1.6",
     "@types/debug": "^4.1.12",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.1.0",
-    "@types/nodemailer": "^7.0.2",
+    "@types/nodemailer": "^7.0.10",
     "@types/sqlstring": "^2.3.2",
     "auto-changelog": "^2.4.0",
     "chums-types": "github:ChumsInc/chums-types",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.0.4",
+    "typescript-eslint": "^8.56.0",
     "winston": "^3.13.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
@@ -42,7 +46,7 @@
     "named-placeholders": "^1.1.2",
     "node-adodb": "^5.0.2",
     "node-fetch": "^3.2.0",
-    "nodemailer": "^7.0.9",
+    "nodemailer": "^8.0.1",
     "sqlstring": "^2.3.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
