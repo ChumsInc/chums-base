@@ -52,7 +52,7 @@ function initLogger(options?:LoggerOptions) {
             new winston.transports.Console({
                 level: 'info',
                 format: winston.format.combine(
-                    winston.format.colorize(),
+                    // winston.format.colorize(),
                     winston.format.simple()
                 )
             }),
