@@ -69,7 +69,7 @@ export async function loadValidation(req: Request): Promise<UserValidationRespon
         headers.set('X-Forwarded-For', req.ip ?? 'undefined');
         headers.set('referrer', req.get('referrer') || req.originalUrl);
 
-        let url = `${API_HOST}/api/user/validate.json`;
+        let url = `${API_HOST}/api/user/v2/validate.json`;
 
         if (!!user && !!pass) {
             const credentials = Buffer.from(`${user}:${pass}`).toString('base64');
@@ -80,7 +80,7 @@ export async function loadValidation(req: Request): Promise<UserValidationRespon
             fetchOptions.body = JSON.stringify({token});
             headers.set('Content-Type', 'application/json');
         } else if (session) {
-            url = `${API_HOST}/api/user/validate/session/:session.json`
+            url = `${API_HOST}/api/user/v2/validate/:session.json`
                 .replace(':session', encodeURIComponent(session));
         }
 
